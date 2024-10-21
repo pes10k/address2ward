@@ -8,10 +8,11 @@ import address2ward
 PARSER = argparse.ArgumentParser(
     prog="address2ward",
     description="Returns best effort Chicago Aldermanic Ward for an address. "
-                "Ward data is from https://data.cityofchicago.org/Facilities-Geographic-Boundaries/Boundaries-Wards-2023-Map/cdf7-bgn3.")
+                "Ward data is from https://data.cityofchicago.org/"
+                "Facilities-Geographic-Boundaries/Boundaries-Wards-2023-Map/cdf7-bgn3.")
 PARSER.add_argument(
     "address",
-    help="Address to geolocate")
+    help="Address to geolocate.")
 PARSER.add_argument(
     "--cachedir",
     default="/tmp",

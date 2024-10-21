@@ -5,7 +5,7 @@ from typing import cast
 
 from diskcache import Cache
 from geopy.geocoders import Nominatim
-import shapely
+from shapely import MultiPolygon
 import shapely.wkt
 
 
@@ -15,27 +15,28 @@ class Coords:
     long: float
 
 
-AddressCache = dict[str, tuple[float, float]]
 WardId = int
 
 
 @dataclass
 class WardShape:
     ward: WardId
-    shape: shapely.MultiPolygon
+    shape: MultiPolygon
 
 
 def get_ward_data() -> list[WardShape]:
     wards = []
-    with open("./data/wards.json", "r") as json_data:
-        for ward_number, ward_shape in json.load(json_data):
-            ward = WardShape(int(ward_number), shapely.wkt.loads(ward_shape))
+    with open("./data/wards.json", "r", encoding="utf8") as json_data:
+        for ward_number, ward_shape_text in json.load(json_data):
+            ward_number = int(ward_number)
+            ward_shape = cast(MultiPolygon, shapely.wkt.loads(ward_shape_text))
+            ward = WardShape(ward_number, ward_shape)
             wards.append(ward)
     return wards
 
 
 def coords_for_address(address: str, cachedir: Path) -> Coords:
-    cache = cast(AddressCache, Cache(cachedir))
+    cache = Cache(cachedir)
     if address in cache:
         return Coords(*cache[address])
 
