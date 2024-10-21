@@ -16,7 +16,7 @@ PARSER.add_argument(
     "--cachedir",
     default="/tmp",
     type=pathlib.Path,
-    help="If provided, path to read / write cached values to.")
+    help="Directory to read / write cached values to.")
 ARGS = PARSER.parse_args()
 
 WARD_ID = address2ward.ward_for_address(ARGS.address, ARGS.cachedir)

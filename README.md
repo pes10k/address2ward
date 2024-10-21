@@ -10,5 +10,5 @@ positional arguments:
 
 options:
   -h, --help           show this help message and exit
-  --cachedir CACHEDIR  If provided, path to read / write cached values to.
+  --cachedir CACHEDIR  Directory to read / write cached values to.
 ```
